@@ -1,7 +1,6 @@
 public class SimpleIterationMethod {
 
     public static Result solve(PhiFunction phi, double a, double b, double eps) {
-
         if (eps <= 0) {
             throw new IllegalArgumentException("Погрешность должна быть > 0");
         }
@@ -22,11 +21,14 @@ public class SimpleIterationMethod {
         double x = (a + b) / 2.0;
         double prev;
         int iterations = 0;
-
+        int maxIterations = 10000;
         do {
             prev = x;
             x = phi.phi(x);
             iterations++;
+            if (iterations > maxIterations) {
+                throw new ArithmeticException("Превышено максимальное количество итераций");
+            }
 
         } while (Math.abs(x - prev) > eps);
 

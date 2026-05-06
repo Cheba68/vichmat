@@ -8,6 +8,10 @@ public class Main {
         return Double.parseDouble(input);
     }
 
+    private static boolean hasRoot(Function f, double a, double b) {
+        return f.f(a) * f.f(b) <= 0;
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -36,6 +40,9 @@ public class Main {
 
                     int inputChoice = scanner.nextInt();
                     InputData data;
+                    double a = 0;
+                    double b = 0;
+                    double eps = 0;
 
                     if (inputChoice == 1) {
 
@@ -51,23 +58,40 @@ public class Main {
                         int methodChoice = scanner.nextInt();
 
                         System.out.print("Введите a: ");
-                        double a = readDouble(scanner);
+                        a = readDouble(scanner);
 
                         System.out.print("Введите b: ");
-                        double b = readDouble(scanner);
+                        b = readDouble(scanner);
+
+                        if (a >= b) {
+                            throw new IllegalArgumentException("Некорректный интервал");
+                        }
 
                         System.out.print("Введите eps: ");
-                        double eps = readDouble(scanner);
+                        eps = readDouble(scanner);
+
+                        if (eps <= 0) {
+                            throw new IllegalArgumentException("Погрешность должна быть > 0");
+                        }   
 
                         data = new InputData(funcChoice, methodChoice, a, b, eps);
 
                     } else {
                         data = InputHandler.readFromFile("input.txt");
                         System.out.println("Данные считаны из файла.");
+                        a = data.a;
+                        b = data.b;
+                        eps = data.eps;
                     }
-
+                    
                     Function f = FunctionFactory.getFunction(data.funcChoice);
                     Result result = null;
+
+                    if (!hasRoot(f, a, b)) {
+                        System.out.println(" На данном интервале нет корня или их четное количество.");
+                        return;
+                    }
+
 
                     switch (data.methodChoice) {
                         case 1:
@@ -147,11 +171,22 @@ public class Main {
                     System.out.print("Введите eps: ");
                     double eps = readDouble(scanner);
 
-                    SystemSimpleIteration.solve(sys, x0, y0, eps);
+                    double[] result = SystemSimpleIteration.solve(sys, x0, y0, eps);
+
+                    System.out.println("\nПостроить график системы? (1 - да / 0 - нет)");
+                    int plotChoice = scanner.nextInt();
+
+                    if (plotChoice == 1) {
+                        SystemPlotFrame.show(sys, result[0], result[1]);
+                    }
                 }
 
+            } catch (IllegalArgumentException e) {
+                System.out.println(" Ошибка ввода: " + e.getMessage());
+            } catch (ArithmeticException e) {
+                System.out.println(" Ошибка вычислений: " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("Ошибка: " + e.getMessage());
+                System.out.println(" Неизвестная ошибка: " + e.getMessage());
             }
         }
 

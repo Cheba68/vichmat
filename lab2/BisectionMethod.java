@@ -20,7 +20,7 @@ public class BisectionMethod {
         int iterations = 0;
         double x = 0;
 
-        // 🔁 Основной цикл
+        // Основной цикл
         while (Math.abs(b - a) > eps) {
             x = (a + b) / 2.0;
             double fx = f.f(x);

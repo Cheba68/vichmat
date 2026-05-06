@@ -1,6 +1,6 @@
 public class SystemSimpleIteration {
 
-    public static void solve(SystemFunction sys, double x0, double y0, double eps) {
+    public static double[] solve(SystemFunction sys, double x0, double y0, double eps) {
 
         double x = x0;
         double y = y0;
@@ -32,11 +32,15 @@ public class SystemSimpleIteration {
         System.out.println("y = " + y);
         System.out.println("Итераций: " + iterations);
 
+        double[] result = {x, y};  
+
+
         double f1 = Math.sin(y) + 2 * x - 2;
         double f2 = y + Math.cos(x - 1) - 0.7;
 
         System.out.println("\nПроверка:");
         System.out.println("f1 = " + f1);
         System.out.println("f2 = " + f2);
+        return result;
     }
 }
