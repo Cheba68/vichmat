@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.MainController">
+
+    <content>
+
+        <BorderPane>
+
+    <!--  TOP  -->
+
+    <top>
+
+        <VBox spacing="10"
+              styleClass="top-panel">
+
+            <Label text="Численные методы"
+                   styleClass="title-label"/>
+
+            <TabPane>
+
+                <tabs>
+
+                    <!--  УРАВНЕНИЯ  -->
+
+                    <Tab text="Уравнения"
+                         closable="false">
+
+                        <VBox spacing="15"
+                              styleClass="control-panel">
+
+                            <!--  ПАНЕЛЬ ВВОДА  -->
+
+                            <HBox spacing="15">
+
+                                <VBox spacing="5">
+
+                                    <Label text="Метод"/>
+
+                                    <ComboBox fx:id="methodBox"
+                                              prefWidth="220"/>
+
+                                </VBox>
+
+                                <VBox spacing="5">
+
+                                    <Label text="Функция"/>
+
+                                    <ComboBox fx:id="functionBox"
+                                              prefWidth="250"/>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <HBox spacing="15">
+
+                                <VBox spacing="5">
+
+                                    <Label text="a"/>
+
+                                    <TextField fx:id="aField"/>
+
+                                </VBox>
+
+                                <VBox spacing="5">
+
+                                    <Label text="b"/>
+
+                                    <TextField fx:id="bField"/>
+
+                                </VBox>
+
+                                <VBox spacing="5">
+
+                                    <Label text="ε"/>
+
+                                    <TextField fx:id="epsField"/>
+
+                                </VBox>
+
+                                <VBox>
+
+                                    <Label text=" "/>
+
+                                    <Button text="Решить"
+                                            onAction="#solve"
+                                            styleClass="solve-button"/>
+
+                                    <Button text="Загрузить файл"
+                                            onAction="#loadFromFile"/>
+
+                                    <Button text="Сохранить"
+                                            onAction="#saveToFile"/>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <!--  ГРАФИК  -->
+
+                            <VBox spacing="10"
+                                  VBox.vgrow="ALWAYS">
+
+                                <Label text="График функции"
+                                       styleClass="section-title"/>
+
+                                <LineChart fx:id="chart"
+                                           animated="false"
+                                           createSymbols="true"
+                                           prefHeight="450"
+                                           VBox.vgrow="ALWAYS">
+
+                                    <xAxis>
+                                        <NumberAxis label="X"/>
+                                    </xAxis>
+
+                                    <yAxis>
+                                        <NumberAxis label="Y"/>
+                                    </yAxis>
+
+                                </LineChart>
+
+                            </VBox>
+
+                            <!--  ТАБЛИЦА  -->
+
+                            <VBox spacing="10"
+                                  styleClass="table-panel">
+
+                                <Label text="Таблица итераций"
+                                       styleClass="section-title"/>
+
+                                <TableView fx:id="table"
+                                           prefHeight="220">
+
+                                    <columns>
+
+                                        <TableColumn fx:id="stepColumn"
+                                                     text="Шаг"/>
+
+                                        <TableColumn fx:id="xColumn"
+                                                     text="x"/>
+
+                                        <TableColumn fx:id="fxColumn"
+                                                     text="f(x)"/>
+
+                                        <TableColumn fx:id="errorColumn"
+                                                     text="Ошибка"/>
+
+                                    </columns>
+
+                                </TableView>
+
+                            </VBox>
+
+                        </VBox>
+
+                    </Tab>
+
+                    <!--  СИСТЕМЫ  -->
+
+                    <Tab text="Системы"
+                         closable="false">
+
+                        <VBox spacing="15"
+                              styleClass="control-panel">
+
+                            <HBox spacing="15">
+
+                                <VBox spacing="5">
+
+                                    <Label text="Система"/>
+
+                                    <ComboBox fx:id="systemBox"
+                                              prefWidth="320"
+                                              prefHeight="70"/>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <HBox spacing="15">
+
+                                <VBox spacing="5">
+
+                                    <Label text="x₀"/>
+
+                                    <TextField fx:id="x0Field"/>
+
+                                </VBox>
+
+                                <VBox spacing="5">
+
+                                    <Label text="y₀"/>
+
+                                    <TextField fx:id="y0Field"/>
+
+                                </VBox>
+
+                                <VBox spacing="5">
+
+                                    <Label text="ε"/>
+
+                                    <TextField fx:id="systemEpsField"/>
+
+                                </VBox>
+
+                                <VBox>
+
+                                    <Label text=" "/>
+
+                                    <Button text="Решить систему"
+                                            onAction="#solveSystem"
+                                            styleClass="solve-button"/>
+
+                                </VBox>
+
+                            </HBox>
+                            
+                            <VBox spacing="10"
+                                  VBox.vgrow="ALWAYS">
+
+                                <Label text="График системы"
+                                       styleClass="section-title"/>
+
+                                <LineChart fx:id="systemChart"
+                                           animated="false"
+                                           createSymbols="true"
+                                           prefHeight="450"
+                                           VBox.vgrow="ALWAYS">
+
+                                    <xAxis>
+                                        <NumberAxis label="X"/>
+                                    </xAxis>
+
+                                    <yAxis>
+                                        <NumberAxis label="Y"/>
+                                    </yAxis>
+
+                                </LineChart>
+
+                            </VBox>
+
+                            <TableView fx:id="systemTable"
+                                       prefHeight="300">
+
+                                <columns>
+
+                                    <TableColumn fx:id="systemStepColumn"
+                                                 text="Шаг"/>
+
+                                    <TableColumn fx:id="systemXColumn"
+                                                 text="x"/>
+
+                                    <TableColumn fx:id="systemYColumn"
+                                                 text="y"/>
+
+                                    <TableColumn fx:id="systemErrorXColumn"
+                                                 text="|Δx|"/>
+
+                                    <TableColumn fx:id="systemErrorYColumn"
+                                                 text="|Δy|"/>
+
+                                </columns>
+
+                            </TableView>
+
+                            <HBox spacing="25">
+
+                                <Label fx:id="systemResultLabel"
+                                       text="Результат:"/>
+
+                                <Label fx:id="systemIterationsLabel"
+                                       text="Итерации:"/>
+
+                            </HBox>
+
+                        </VBox>
+
+                    </Tab>
+
+                </tabs>
+
+            </TabPane>
+
+        </VBox>
+
+    </top>
+
+    <!--  BOTTOM  -->
+
+    <bottom>
+
+        <HBox spacing="30"
+              styleClass="result-panel">
+
+            <Label fx:id="rootLabel"
+                   text="Корень:"/>
+
+            <Label fx:id="fxLabel"
+                   text="f(x):"/>
+
+            <Label fx:id="iterationsLabel"
+                   text="Итерации:"/>
+
+        </HBox>
+
+    </bottom>
+
+        </BorderPane>
+
+    </content>
+
+</ScrollPane>

@@ -1,0 +1,46 @@
+.root {
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+}
+
+.top-panel {
+    -fx-padding: 10;
+    -fx-background-color: #f5f5f5;
+}
+
+.result-panel {
+    -fx-padding: 10;
+    -fx-background-color: #eaeaea;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-radius: 8;
+}
+
+.main-split {
+    -fx-padding: 10;
+}
+
+.table-panel {
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-border-color: #dcdcdc;
+    -fx-background-radius: 10;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.chart {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-border-color: #dcdcdc;
+    -fx-background-radius: 10;
+}
+
+.combo-box {
+    -fx-wrap-text: true;
+}
